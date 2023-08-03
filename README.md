@@ -1,3 +1,4 @@
+![Image description](decision_maker_logo.png)
 # Thinker - A Decision Making Assistant
 
 Thinker provides personalized advice using Anthropic's Claude AI assistant based on your unique context.
