@@ -28,7 +28,7 @@ pip install -r requirements.txt
 ### Usage
 
 ```
-python app.py
+python claude_decision_maker.py
 ```
 When prompted, enter your current situation and goal. Claude will provide personalized suggestions based on your conversation history.
 
