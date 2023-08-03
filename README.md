@@ -1,4 +1,7 @@
-<img src="https://github.com/AspadaX/Thinker_DecisionMakingAssistant/blob/main/decision_maker_logo.png" alt="Image description" width="200" height="200">
+<p align="center">
+  <img src="https://github.com/AspadaX/Thinker_DecisionMakingAssistant/blob/main/decision_maker_logo.png" alt="Image description" width="200" height="200">
+</p>
+
 # Thinker - A Decision Making Assistant
 
 Thinker provides personalized advice using Anthropic's Claude AI assistant based on your unique context.
