@@ -38,12 +38,11 @@ To run locally:
 
 - Sign up for Claude API key at anthropic.com
 - Clone repo and install requirements
-- Set ANTHROPIC_API_KEY environment variable
-- Run python claude_decision_maker.py
+- Set `ANTHROPIC_API_KEY` environment variable
+- Run `python claude_decision_maker.py`
 - Enter your situation and thought process when prompted
-- Review summaries, scenarios, suggestions
 - Interactively discuss top recommendations
-- The core prompting cycle is implemented in get_scenario_responses, parse_suggestions, add_scores, and interactive_advice.
+- The core prompting cycle is implemented in `get_scenario_responses`, `parse_suggestions`, `add_scores`, and `interactive_advice`.
 
 ## Customization
 The template prompts can be edited to tailor the conversation flow. Additional Claude models, hyperparameters, and algorithms can be configured as well.
