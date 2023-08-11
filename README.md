@@ -46,9 +46,6 @@ To run locally:
 - Interactively discuss top recommendations
 - The core prompting cycle is implemented in `get_scenario_responses`, `parse_suggestions`, `add_scores`, `interactive_advice` and other functions defined in the script.
 
-## Customization
-The template prompts can be edited to tailor the conversation flow. Additional Claude models, hyperparameters, and algorithms can be configured as well.
-
 ## Contributions
 Ideas and improvements welcome! Some possibilities:
 
