@@ -49,6 +49,7 @@ To run locally:
 ## Contributions
 Ideas and improvements welcome! Some possibilities:
 
+- Integrate OpenAI models, or other capable LLMs, as the underneath engine.
 - Alternative simulation scoring methods
 - Front-end UI for better experience
 - Integration with user calendar and task tracking
