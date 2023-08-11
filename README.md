@@ -58,3 +58,4 @@ Ideas and improvements welcome! Some possibilities:
 
 ## License
 This project is licensed under the MIT license. Feel free join my efforts in making this app more useful and helpful to people!
+Just do not forget to reference this project when needed. 
