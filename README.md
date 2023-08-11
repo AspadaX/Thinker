@@ -44,7 +44,7 @@ To run locally:
 - Run `python claude_decision_maker.py`
 - Enter your situation and thought process when prompted
 - Interactively discuss top recommendations
-- The core prompting cycle is implemented in `get_scenario_responses`, `parse_suggestions`, `add_scores`, and `interactive_advice`.
+- The core prompting cycle is implemented in `get_scenario_responses`, `parse_suggestions`, `add_scores`, `interactive_advice` and other functions defined in the script.
 
 ## Customization
 The template prompts can be edited to tailor the conversation flow. Additional Claude models, hyperparameters, and algorithms can be configured as well.
