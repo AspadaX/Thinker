@@ -24,7 +24,7 @@ This script follows that pattern:
 
 Here is a flowchart that explains how the second generation of Thinker works:
 <p align="center">
-  <img src="https://github.com/AspadaX/Thinker_DecisionMakingAssistant/blob/main/Flowchart.png" alt="Image description" <figcaption>A flowchart for the underneath design of Thinker Gen.2</figcaption>>
+  <img src="https://github.com/AspadaX/Thinker_DecisionMakingAssistant/blob/main/Flowchart.png" alt="Image description" <figcaption>A flowchart for the underneath design of Thinker Gen.2</figcaption>
 </p>
 
 ## Features
