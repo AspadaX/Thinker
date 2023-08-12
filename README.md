@@ -23,9 +23,7 @@ This script follows that pattern:
 - By recursively prompting Claude to simulate and build on its own ideas, the assistant can rapidly explore the space of options and zoom in on targeted, relevant advice.
 
 Here is a flowchart that explains how the second generation of Thinker works:
-<p align="center">
-  <img src="https://github.com/AspadaX/Thinker_DecisionMakingAssistant/blob/main/Flowchart.png" alt="Image description" <figcaption>A flowchart for the underneath design of Thinker Gen.2</figcaption>
-</p>
+<p align="center"><img src="https://github.com/AspadaX/Thinker_DecisionMakingAssistant/blob/1400ac9da54e58b69286a19dc7999d8c9e4dc3e4/Flowchart.png" alt="Image description" <figcaption>A flowchart for the underneath design of Thinker Gen.2</figcaption></p>
 
 ## Features
 - Saves conversation history for contextual awareness
