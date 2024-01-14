@@ -3,6 +3,7 @@
 </p>
 
 [中文版本](#README_CN)
+<a name="README"></a>
 
 # Thinker - A Decision Making Assistant
 

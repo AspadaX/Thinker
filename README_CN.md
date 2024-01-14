@@ -3,6 +3,7 @@
 </p>
 
 [English](#README)
+<a name="README_CN"></a>
 
 # Thinker - 决策助手
 
