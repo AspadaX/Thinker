@@ -60,6 +60,15 @@ Ideas and improvements welcome! Some possibilities:
 - More refined clustering and ranking approaches
 - The core prompting framework could also be extended to other use cases like creative ideation, strategic planning, and more. Please open issues or PRs if you build on this project!
 
+## Buy me a coffe if you like it :))
+<p align="left">
+  <img src="https://github.com/AspadaX/Thinker_DecisionMakingAssistant/blob/main/decision_maker_logo.png" alt="Image description" width="200" height="200">
+</p>
+
+<p align="right">
+  <img src="https://github.com/AspadaX/Thinker_DecisionMakingAssistant/blob/main/decision_maker_logo.png" alt="Image description" width="200" height="200">
+</p>
+
 ## License
 This project is licensed under the MIT license. Feel free join my efforts in making this app more useful and helpful to people!
 Just do not forget to reference this project when needed. 
