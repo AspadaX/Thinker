@@ -3,7 +3,7 @@
   <img src="https://github.com/AspadaX/Thinker_DecisionMakingAssistant/blob/main/decision_maker_logo.png" alt="图片描述" width="200" height="200">
 </p>
 
-[English](#README)
+[English](README.md)
 
 # Thinker - 决策助手
 
