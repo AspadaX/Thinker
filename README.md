@@ -1,9 +1,9 @@
+<a name="README"></a>
 <p align="center">
   <img src="https://github.com/AspadaX/Thinker_DecisionMakingAssistant/blob/main/decision_maker_logo.png" alt="Image description" width="200" height="200">
 </p>
 
 [中文版本](#README_CN)
-<a name="README"></a>
 
 # Thinker - A Decision Making Assistant
 
