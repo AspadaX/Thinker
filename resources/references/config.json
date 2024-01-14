@@ -1,0 +1,6 @@
+{
+    "base_tree_size": 5,
+    "branch_size_factor": 5,
+    "top_n_advices": 5,
+    "inference_model": "gpt-3.5-turbo-1106"
+}

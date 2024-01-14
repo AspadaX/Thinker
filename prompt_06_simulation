@@ -1,1 +1,0 @@
-[instruction]:"Simulate how the situation in [summary] is going to develop if [suggested_next_move] is taken. Consider [summary] and [thoughts], then return me how much likely that you recommend the [suggested_next_move] by percentage. Your response should be like: Recommendation Score = "the percentage"."

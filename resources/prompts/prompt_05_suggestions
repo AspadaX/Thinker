@@ -1,0 +1,1 @@
+[instruction]:"Give a suggested next move based on [summary], [thoughts], [predictions] and the Art of War. respond in json. The key values for the move are: 'move', 'rationale', 'success_rate_in_percentage'"

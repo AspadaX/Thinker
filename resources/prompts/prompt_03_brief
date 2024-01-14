@@ -1,0 +1,2 @@
+[instruction]:"Write a high level abstraction from [situation], [my thoughts to the situation], [context] and [info_lookup]. The 'event_content' in [context] indicates the content of a previous event, the 'eventual_outcome' indicates the final outcome of that event, the 'selected_recommendation' indicates the recommendation selected by me in the previous query and the 'timestamp' indicates when the event happened. The high level abstraction should be informative to a consultant who helps me to make a decision."
+[output_format]:"json"
