@@ -62,11 +62,11 @@ Ideas and improvements welcome! Some possibilities:
 
 ## Buy me a coffe if you like it :))
 <p align="left">
-  <img src="https://github.com/AspadaX/Thinker_DecisionMakingAssistant/blob/main/decision_maker_logo.png" alt="Image description" width="200" height="200">
+  <img src="https://github.com/AspadaX/Thinker_DecisionMakingAssistant/blob/main/WechatIMG325.jpg" alt="Image description" width="200" height="200">
 </p>
 
 <p align="right">
-  <img src="https://github.com/AspadaX/Thinker_DecisionMakingAssistant/blob/main/decision_maker_logo.png" alt="Image description" width="200" height="200">
+  <img src="https://github.com/AspadaX/Thinker_DecisionMakingAssistant/blob/main/IMG_1851.JPG" alt="Image description" width="200" height="200">
 </p>
 
 ## License
