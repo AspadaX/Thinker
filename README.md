@@ -61,11 +61,11 @@ Ideas and improvements welcome! Some possibilities:
 - The core prompting framework could also be extended to other use cases like creative ideation, strategic planning, and more. Please open issues or PRs if you build on this project!
 
 ## Buy me a coffe if you like it :))
-<p align="left">
+<p align="center">
   <img src="https://github.com/AspadaX/Thinker_DecisionMakingAssistant/blob/main/WechatIMG325.jpg" alt="Image description" width="200" height="200">
 </p>
 
-<p align="right">
+<p align="center">
   <img src="https://github.com/AspadaX/Thinker_DecisionMakingAssistant/blob/main/IMG_1851.JPG" alt="Image description" width="200" height="200">
 </p>
 
