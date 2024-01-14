@@ -2,25 +2,26 @@
   <img src="https://github.com/AspadaX/Thinker_DecisionMakingAssistant/blob/main/decision_maker_logo.png" alt="Image description" width="200" height="200">
 </p>
 
+[中文版本](#README_CN)
+
 # Thinker - A Decision Making Assistant
 
-Thinker provides personalized advice using Anthropic's Claude AI assistant based on your unique context.
+Thinker provides personalized advice using ~~Anthropic's Claude AI~~ GPT based on your unique context.
 
-This Python script implements a decision making assistant using the Tree of Thoughts prompting technique with the Claude API from Anthropic. It allows the user to iteratively explore potential actions by simulating and discussing interactive advice.
+This Python script implements a decision making assistant using the Tree of Thoughts prompting technique with ~~the Claude API from Anthropic~~ GPT from OpenAI. It allows the user to iteratively explore potential actions by simulating and discussing interactive advice.
 
 FIND ME ON DISCORD! I am pretty sure that guys like you who find this project are talented to make it BETTER! My discord: `https://discord.gg/7bmgzFkn`
 
 ## Background
 The Tree of Thoughts is a prompting approach that starts broad and gradually narrows down on useful specific ideas through an iterative cycle of generation, simulation, and ranking.
 
-This script follows that pattern:
+This program follows that pattern:
 
 - The user provides a situation
-- Claude generates potential scenarios
-- Claude suggests actions for each scenario
+- LLM generates potential scenarios
+- LLM suggests actions for each scenario
 - The actions are scored by feasibility via simulation
-- Top ranked suggestions are discussed interactively
-- By recursively prompting Claude to simulate and build on its own ideas, the assistant can rapidly explore the space of options and zoom in on targeted, relevant advice.
+- By recursively prompting LLM to simulate and build on its own ideas, the assistant can rapidly explore the space of options and zoom in on targeted, relevant advice.
 
 Here is a flowchart that explains how the second generation of Thinker works:
 <p align="center"><img src="https://github.com/AspadaX/Thinker_DecisionMakingAssistant/blob/1400ac9da54e58b69286a19dc7999d8c9e4dc3e4/Flowchart.png" alt="Image description" <figcaption>A flowchart for the underneath design of Thinker Gen.2</figcaption></p>
@@ -41,13 +42,29 @@ Here is a flowchart that explains how the second generation of Thinker works:
 ## Usage
 To run locally:
 
-- Sign up for Claude API key at anthropic.com
-- Clone repo and install requirements
-- Set `ANTHROPIC_API_KEY` environment variable
-- Run `python claude_decision_maker.py`
-- Enter your situation and thought process when prompted
-- Interactively discuss top recommendations
-- The core prompting cycle is implemented in `get_scenario_responses`, `parse_suggestions`, `add_scores`, `interactive_advice` and other functions defined in the script.
+First, you will need to secure an OpenAI API key at openai.com, as the current Thinker program needs the GPT models to power it up. 
+
+Then, under `/resources/remote_services/api_key` file, here is how you put your api-key:
+```
+{
+    "openai_api_key":"your api key here",
+    "openai_base_url":"put your base url here if you need a proxy",
+    "openai_official_api_key":"your api key here"
+}
+```
+In case if you need to use a proxy to access OpenAI services, you will need to modify `commons/components/LLMCores.py` as follows:
+
+Change
+```
+api_type: str = 'openai'
+```
+
+to
+```
+api_type: str = 'proxy'
+```
+
+Finally, use `pip install -r requirements.txt` to install all the dependencies before using `python3 user_interface.py` to run the gradio demo. 
 
 ## Roadmap
 Ideas and improvements welcome! Some possibilities:
