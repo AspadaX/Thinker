@@ -11,7 +11,7 @@ Thinker provides personalized advice using ~~Anthropic's Claude AI~~ GPT based o
 
 This Python script implements a decision making assistant using the Tree of Thoughts prompting technique with ~~the Claude API from Anthropic~~ GPT from OpenAI. It allows the user to iteratively explore potential actions by simulating and discussing interactive advice.
 
-FIND ME ON DISCORD! I am pretty sure that guys like you who find this project are talented to make it BETTER! My discord: `https://discord.gg/7bmgzFkn`
+FIND ME ON DISCORD! I am pretty sure that guys like you who find this project are talented to make it BETTER! My discord: [https://discord.gg/7bmgzFkn](https://discord.gg/7fY8EQtv)
 
 ## Background
 The Tree of Thoughts is a prompting approach that starts broad and gradually narrows down on useful specific ideas through an iterative cycle of generation, simulation, and ranking.
