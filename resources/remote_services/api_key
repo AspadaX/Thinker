@@ -1,5 +1,5 @@
 {
-    "openai_api_key":"",
-    "openai_base_url":"",
+    "openai_api_key":"1234",
+    "openai_base_url":"http://localhost:4000/v1",
     "openai_official_api_key":""
 }

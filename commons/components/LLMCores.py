@@ -17,7 +17,7 @@ import google.generativeai as genai
 
 class TextGenerationCore:
     
-    def __init__(self, api_type: str = 'openai', model: str = 'gpt-3.5-turbo-1106') -> None:
+    def __init__(self, api_type: str = 'openai', model: str = 'gpt-4.1') -> None:
         self.api_type = api_type
         self.overall_token_consumption: int = 0
         # initialize the variables

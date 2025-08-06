@@ -1,0 +1,5 @@
+./resources/VectorDB
+./flagged
+
+*.pyc
+__pycache__
