@@ -15,7 +15,7 @@ class QueryComponent:
         base_tree_size: int = 5, 
         branch_size_factor: int = 5, 
         top_n_advices: int = 5,
-        inference_model: str = "gpt-3.5-turbo-1106",
+        inference_model: str = "gpt-4.1",
         api_type: str = "openai",
     ) -> None:
         

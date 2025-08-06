@@ -1,0 +1,13 @@
+[project]
+name = "thinker"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "chromadb==0.4.15",
+    "google-generativeai==0.3.1",
+    "gradio==3.44.4",
+    "openai>=1.99.1",
+    "scikit-learn>=1.7.1",
+]
