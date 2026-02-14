@@ -46,13 +46,13 @@ To run locally:
 First, you will need to secure an OpenAI API key at openai.com, as the current Thinker program needs the GPT models to power it up. 
 
 Then, set up environment variables as follows:
-```
+```bash
 export OPENAI_API_KEY="<OpenAI API key>"
 export OPENAI_MODEL="<Specified OpenAI model name>"
 ```
 In case if you need to use a proxy to access OpenAI services, you will just need to specify API URL as follows:
 
-```
+```bash
 export OPENAI_BASE_URL="<Specified OpenAI API service>"
 ```
 
@@ -60,7 +60,7 @@ export OPENAI_BASE_URL="<Specified OpenAI API service>"
 Thinker currently supports only the OpenAI API specification. 
 
 In the future, we will support additional API protocols—simply set a specific environment variable to `API_TYPE` switch between them as follows:
-```
+```bash
 export API_TYPE="<API >"
 ```
 
