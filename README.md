@@ -45,24 +45,23 @@ To run locally:
 
 First, you will need to secure an OpenAI API key at openai.com, as the current Thinker program needs the GPT models to power it up. 
 
-Then, under `/resources/remote_services/api_key` file, here is how you put your api-key:
+Then, set up environment variables as follows:
+```bash
+export OPENAI_API_KEY="<OpenAI API key>"
+export OPENAI_MODEL="<Specified OpenAI model name>"
 ```
-{
-    "openai_api_key":"your api key here",
-    "openai_base_url":"put your base url here if you need a proxy",
-    "openai_official_api_key":"your api key here"
-}
-```
-In case if you need to use a proxy to access OpenAI services, you will need to modify `commons/components/LLMCores.py` as follows:
+In case if you need to use a proxy to access OpenAI services, you will just need to specify API URL as follows:
 
-Change
-```
-api_type: str = 'openai'
+```bash
+export OPENAI_BASE_URL="<Specified OpenAI API service>"
 ```
 
-to
-```
-api_type: str = 'proxy'
+### Support Plans
+Thinker currently supports only the OpenAI API specification. 
+
+In the future, we will support additional API protocols—simply set a specific environment variable to `API_TYPE` switch between them as follows:
+```bash
+export API_TYPE="<API >"
 ```
 
 Finally, use `pip install -r requirements.txt` to install all the dependencies before using `python3 user_interface.py` to run the gradio demo. 
