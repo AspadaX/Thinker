@@ -1,48 +1,60 @@
 import asyncio
 import json
 import re
+from typing import List, Dict, Any, Tuple, Optional
 
-from .MemoryComponents import *
-from .mechanics.QueryOperations import QueryOperation
 from .LLMCores import *
+from .mechanics.QueryOperations import QueryOperation
+from .MemoryComponents import *
 
 
 class QueryComponent:
-
     def __init__(
-            self,
-            memory: MemoryComponent,
-            base_tree_size: int = 5,
-            branch_size_factor: int = 5,
-            top_n_advices: int = 5,
-            inference_model: str = "gpt-4.1",
-            api_type: str = "openai",
+        self,
+        memory: MemoryComponent,
+        base_tree_size: int = 5,
+        branch_size_factor: int = 5,
+        top_n_advices: int = 5,
+        inference_model: str = "gpt-4.1",
+        api_type: str = "openai",
     ) -> None:
-
         # initialized variables
         self.memory: MemoryComponent = memory
-        self.base_tree_size: int = base_tree_size  # the number determines how many predictions it makes for the query
-        self.branch_size_factor: int = branch_size_factor  # the number determines how many suggestions made for each prediction
-        self.top_n_advices: int = top_n_advices  # the number determines how many advices it will eventually sort out
-        logging.info(f'QueryComponent initialized with base_tree_size: {base_tree_size}')
-        logging.info(f'QueryComponent initialized with branch_size_factor: {branch_size_factor}')
-        logging.info(f'QueryComponent initialized with top_n_advices: {top_n_advices}')
+        # the number determines how many predictions it makes for the query
+        self.base_tree_size: int = base_tree_size
+        # the number determines how many suggestions made for each prediction
+        self.branch_size_factor: int = branch_size_factor
+        # the number determines how many advices it will eventually sort out
+        self.top_n_advices: int = top_n_advices
+        logging.info(
+            f"QueryComponent initialized with base_tree_size: {base_tree_size}"
+        )
+        logging.info(
+            f"QueryComponent initialized with branch_size_factor: {branch_size_factor}"
+        )
+        logging.info(
+            f"QueryComponent initialized with top_n_advices: {top_n_advices}"
+        )
 
         # initialize the `text_generator`
-        self.text_generator: TextGenerationCore = TextGenerationCore(api_type=api_type)
+        self.text_generator: TextGenerationCore = TextGenerationCore(
+            api_type=api_type
+        )
 
         # other variables that we will get later on
-        self.the_brief: dict = {}
-        self.the_predictions: list = []
-        self.the_suggestions: list = []
-        self.the_final_output: list = []
+        self.the_brief: Dict[str, Any] = {}
+        self.the_predictions: List[Dict[str, Any]] = []
+        self.the_suggestions: List[Dict[str, Any]] = []
+        self.the_final_output: List[Dict[str, Any]] = []
+        # Store tree structure: each prediction has its suggestions
+        self.tree_structure: Dict[str, Any] = {"root": None, "predictions": []}
 
     async def brief(self) -> None:
         """
         The `brief` function generates a brief prompt by combining various pieces of information and
         sends it to the OpenAI text generator to generate a brief.
         """
-        with open('resources/prompts/prompt_03_brief', 'r') as prompt:
+        with open("resources/prompts/prompt_03_brief", "r") as prompt:
             prompt: str = prompt.read()
 
         # retrieve the historical events
@@ -51,17 +63,30 @@ class QueryComponent:
         # construct the prompt to send
         situation = "[situation]:" + self.memory.situation + "\n"
         context = "[context]:" + str(historical_events) + "\n"
-        thoughts = "\n[my thoughts to the situation]:" + self.memory.thoughts + "\n"
-        info_lookup = "[info_lookup]:" + "Current date is " + str(datetime.datetime.now()) + "\n"
+        thoughts = (
+            "\n[my thoughts to the situation]:" + self.memory.thoughts + "\n"
+        )
+        info_lookup = (
+            "[info_lookup]:"
+            + "Current date is "
+            + str(datetime.datetime.now())
+            + "\n"
+        )
 
-        brief_prompt: str = prompt + thoughts + situation + info_lookup + context
+        brief_prompt: str = (
+            prompt + thoughts + situation + info_lookup + context
+        )
         logging.info("Brief prompt generated.")
         logging.debug(brief_prompt)
 
         # get the brief
         try:
             while True:
-                brief: ChatCompletion = await self.text_generator.get_json_response_OpenAI(message=brief_prompt)
+                brief: ChatCompletion = (
+                    await self.text_generator.get_json_response_OpenAI(
+                        message=brief_prompt
+                    )
+                )
                 if brief is None:
                     continue
 
@@ -79,7 +104,7 @@ class QueryComponent:
         The `predict` function reads a prompt from a file, appends a summary to it, generates a
         prediction using OpenAI's text generator, and records the prediction in the object instance.
         """
-        with open('resources/prompts/prompt_04_predictions', 'r') as prompt:
+        with open("resources/prompts/prompt_04_predictions", "r") as prompt:
             prompt: str = prompt.read()
 
         # construct the prompt to send
@@ -87,14 +112,15 @@ class QueryComponent:
 
         # get the predictions based on the `base_tree_size`
         # original seed: seed=458282
-        tasks = [self.text_generator.get_json_response_OpenAI(message=prompt) for i in range(self.base_tree_size)]
+        tasks = [
+            self.text_generator.get_json_response_OpenAI(message=prompt)
+            for i in range(self.base_tree_size)
+        ]
         predictions = await asyncio.gather(*tasks)
         logging.info("Predictions generated. ")
 
         for prediction in predictions:
-
             try:
-
                 # we stop the current iteration and start the next in case if the API request failed.
                 if prediction is None:
                     continue
@@ -112,11 +138,14 @@ class QueryComponent:
                     logging.info("Prediction recorded.")
 
             except json.JSONDecodeError as e:
-                logging.error(f"Prediction generation failed due to {e}. Retry.")
+                logging.error(
+                    f"Prediction generation failed due to {e}. Retry."
+                )
                 valid_prediction = False
 
                 while valid_prediction == False:
-                    prediction: ChatCompletion = self.text_generator.get_json_response_OpenAI(message=prompt)
+                    prediction: ChatCompletion = await self.text_generator.get_json_response_OpenAI(message=prompt)
+
 
                     content: str = prediction.choices[0].message.content
                     matches = re.findall(r"```json\n([\s\S]*?)\n```", content)
@@ -127,36 +156,70 @@ class QueryComponent:
                         valid_prediction = True
                         logging.info("Retry succeeded. Prediction recorded.")
                     else:
-                        self.the_predictions.append(json.loads(content))
-                        valid_prediction = True
-                        logging.info("Retry succeeded. Prediction recorded.")
+                        try:
+                            self.the_predictions.append(json.loads(content))
+                            valid_prediction = True
+                            logging.info("Retry succeeded. Prediction recorded.")
+                            
+                        except json.decoder.JSONDecodeError as error:
+                            logging.warning(f"Got wrong json: {error}")
+                            logging.warning(f"Content: {prediction}")
 
     async def suggest(self) -> None:
         # load the prompt
-        with open('resources/prompts/prompt_05_suggestions', 'r') as prompt:
+        with open("resources/prompts/prompt_05_suggestions", "r") as prompt:
             prompt: str = prompt.read()
 
-        # construct the prompt to send
-        prompts: list = []
+        # construct the prompt to send and track prediction indices
+        prompt_data: list = []
         counter: int = 0
-        for prediction in self.the_predictions:
-            iterative_prompt = prompt + "[predictions]:" + str(prediction) + "\n" + "[summary]:" + str(
-                self.the_brief) + "\n" + "[thoughts]:" + self.memory.thoughts + "\n"
-            prompts.append(iterative_prompt)
+        for pred_idx, prediction in enumerate(self.the_predictions):
+            iterative_prompt = (
+                prompt
+                + "[predictions]:"
+                + str(prediction)
+                + "\n"
+                + "[summary]:"
+                + str(self.the_brief)
+                + "\n"
+                + "[thoughts]:"
+                + self.memory.thoughts
+                + "\n"
+            )
+            prompt_data.append((pred_idx, prediction, iterative_prompt))
             counter += 1
-            logging.info(f"Suggestions prompt generated ({counter}/{len(self.the_predictions)})")
+            logging.info(
+                f"Suggestions prompt generated ({counter}/{len(self.the_predictions)})"
+            )
             logging.debug(f"Suggestions prompt preview: {iterative_prompt}")
 
-        # get the suggestions
-        # list comprehension to schedule 5 generations for each prompt
-        tasks = [self.text_generator.get_json_response_OpenAI(message=prompt) for prompt in prompts for i in
-                 range(self.branch_size_factor)]
+        # Initialize tree structure for predictions
+        self.tree_structure["root"] = self.the_brief
+        self.tree_structure["predictions"] = []
+        for pred_idx, prediction in enumerate(self.the_predictions):
+            self.tree_structure["predictions"].append(
+                {"id": pred_idx, "data": prediction, "suggestions": []}
+            )
+
+        # get the suggestions, with prediction index tracking
+        tasks = []
+        task_info = []
+        for pred_idx, prediction, iterative_prompt in prompt_data:
+            for i in range(self.branch_size_factor):
+                tasks.append(
+                    self.text_generator.get_json_response_OpenAI(
+                        message=iterative_prompt
+                    )
+                )
+                task_info.append(pred_idx)
+
         results: list = await asyncio.gather(*tasks)
 
         # post-process the results
-        for result in results:
+        for task_idx, result in enumerate(results):
+            pred_idx = task_info[task_idx]
 
-            # we stop the current iteration and start the next in case if the API request failed. 
+            # we stop the current iteration and start the next in case if the API request failed.
             if result is None:
                 continue
 
@@ -174,47 +237,66 @@ class QueryComponent:
                     json_result: dict = json.loads(content)
 
                 # post-process the `success_rate_in_percentage`
-                if isinstance(json_result['success_rate_in_percentage'], str) and json_result[
-                    'success_rate_in_percentage'].endswith('%'):
-                    json_result['success_rate_in_percentage'] = int(
-                        json_result['success_rate_in_percentage'].rstrip('%'))
+                if isinstance(
+                    json_result["success_rate_in_percentage"], str
+                ) and json_result["success_rate_in_percentage"].endswith("%"):
+                    json_result["success_rate_in_percentage"] = int(
+                        json_result["success_rate_in_percentage"].rstrip("%")
+                    )
                     logging.info(
-                        f"Success rate is in percentage: {json_result['success_rate_in_percentage']}, converted")
+                        f"Success rate is in percentage: {json_result['success_rate_in_percentage']}, converted"
+                    )
 
-                elif isinstance(json_result['success_rate_in_percentage'], int):
-                    logging.info(f"Success rate is already an integer: {json_result['success_rate_in_percentage']}")
+                elif isinstance(json_result["success_rate_in_percentage"], int):
+                    logging.info(
+                        f"Success rate is already an integer: {json_result['success_rate_in_percentage']}"
+                    )
                     pass
 
                 else:
-                    json_result['success_rate_in_percentage'] = int(json_result['success_rate_in_percentage'])
+                    json_result["success_rate_in_percentage"] = int(
+                        json_result["success_rate_in_percentage"]
+                    )
                     logging.info(
-                        f"Success rate is not an integer: {json_result['success_rate_in_percentage']}, converted.")
+                        f"Success rate is not an integer: {json_result['success_rate_in_percentage']}, converted."
+                    )
 
-                # Append the parsed JSON to the suggestions list
+                # Append the parsed JSON to the suggestions list and tree structure
                 self.the_suggestions.append(json_result)
+                self.tree_structure["predictions"][pred_idx][
+                    "suggestions"
+                ].append(json_result)
 
             except json.JSONDecodeError as e:
                 logging.error(f"Could not decode the JSON response: {e}")
                 logging.error(f"Problematic content: {content}")
 
             except Exception as e:
-                logging.error(f"An unexpected error occurred while parsing the JSON: {e}")
+                logging.error(
+                    f"An unexpected error occurred while parsing the JSON: {e}"
+                )
 
         # remove the duplicated branches
-        self.the_suggestions = QueryOperation(query_object=self.the_suggestions).prune_branches(key='move')
+        self.the_suggestions = QueryOperation(
+            query_object=self.the_suggestions
+        ).prune_branches(key="move")
 
         # for suggestion in self.the_suggestions:
         #     print(suggestion['move'])
         #     print(suggestion['rationale'])
         #     print(suggestion['success_rate_in_percentage'])
 
-    async def evaluate(self):
+    async def evaluate(self) -> Tuple[List[Dict[str, Any]], Dict[str, Any]]:
         """
         Evaluate the suggestions and decide whether to keep making branches or not.
         """
 
-        self.the_suggestions.sort(key=lambda x: x['success_rate_in_percentage'], reverse=True)
+        self.the_suggestions.sort(
+            key=lambda x: x["success_rate_in_percentage"], reverse=True
+        )
 
         # we keep the `top_n_advices`
-        self.the_suggestions = self.the_suggestions[:self.top_n_advices]
+        self.the_suggestions = self.the_suggestions[: self.top_n_advices]
         logging.info(f"The top {self.top_n_advices} suggestions are kept.")
+
+        return self.the_suggestions, self.tree_structure
