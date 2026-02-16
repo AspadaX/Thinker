@@ -1,3 +1,4 @@
+from typing_extensions import AsyncGenerator, Literal
 from .components.MemoryComponents import MemoryComponent
 from .components.QueryComponents import QueryComponent
 from .components.ThinkComponents import StrategyComponent
@@ -31,23 +32,35 @@ class Thinker:
         # initialize `StrategyComponent`
         self.strategizer: StrategyComponent = StrategyComponent()
     
-    async def query_process(self) -> None:
+    async def query_process(self) -> AsyncGenerator[str, None]:
         """
         The `query_process` function saves the current situation into memory, performs a series of queries,
         and retrieves the suggestions from the `QueryComponent`.
         """
         
         # save the current situation into the memory
+        yield "💾 Saving memory...", None
         await self.memory.store_memory()
         
         # query
+        yield "📝 Generating brief...", None
         await self.query.brief()
+        yield "✅ Brief generated.", self.query.the_brief
+
+        yield "🔮 Generating predictions...", None
         await self.query.predict()
+        yield f"✅ Generated {len(self.query.the_predictions)} predictions.", self.query.the_predictions
+
+        yield "💡 Generating suggestions...", None
         await self.query.suggest()
-        await self.query.evaluate()
+        yield f"✅ Generated {len(self.query.the_suggestions)} raw suggestions.", self.query.the_suggestions
+
+        yield "⚖️ Evaluating suggestions...", None
+        _, self.tree_structure = await self.query.evaluate()
         
         # retrieve the final outputs of the `QueryComponent`
         self.the_suggestions: list = self.query.the_suggestions
+        yield f"✅ Evaluation complete. Top {len(self.the_suggestions)} suggestions selected.", self.the_suggestions
     
     async def think_process(self, selected_suggestion: int) -> str:
         """
