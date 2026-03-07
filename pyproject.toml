@@ -6,6 +6,7 @@ readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
     "chromadb==0.4.15",
+    "fastapi[standard]>=0.116.1",
     "google-generativeai==0.3.1",
     "gradio~=6.5",
     "openai~=2.21",

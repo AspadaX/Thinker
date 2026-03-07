@@ -1,8 +1,10 @@
-from typing_extensions import AsyncGenerator, Literal
+from typing_extensions import AsyncGenerator
+
+from .components.mechanics.Loaders import ConfigLoader
 from .components.MemoryComponents import MemoryComponent
 from .components.QueryComponents import QueryComponent
 from .components.ThinkComponents import StrategyComponent
-from .components.mechanics.Loaders import ConfigLoader
+
 
 # The `Thinker` class is a component that processes queries, retrieves suggestions, and elaborates on
 # selected suggestions using a strategy component.
