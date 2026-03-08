@@ -25,7 +25,7 @@ app = FastAPI()
 
 
 @app.post("/query", response_class=EventSourceResponse)
-async def query(request: QueryRequest) -> AsyncIterable[QueryDelta]:
+async def query(request: QueryRequest):
     logger.info(f"Starting query for situation: {request.situation[:50]}...")
     instance = Thinker(situation=request.situation, thoughts=request.thoughts)
 
